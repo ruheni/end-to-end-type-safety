@@ -1,0 +1,5 @@
+# Prisma Migrate lockfile v1
+
+20201107132210-init
+20201107132418-modify-rating
+20201107132501-delete-rating
