@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "workspaces": [
+        "frontend",
+        "backend"
+    ],
+    "scripts": {
+        "client": "yarn workspace frontend start",
+        "server": "yarn workspace backend dev",
+        "start": "concurrently --kill-others-on-fail \"yarn server\"  \"yarn client\"",
+        "generate:gql": "graphql-codegen --config codegen.yml"
+    },
+    "dependencies": {
+        "concurrently": "^5.3.0"
+    }
+}
