@@ -1,23 +1,18 @@
-import { queryType, stringArg } from "@nexus/schema";
+import { queryType } from '@nexus/schema';
 
 export const Queries = queryType({
     definition(t) {
-        t.list.field('movies', {
-            type: 'Movie',
+        t.list.field('products', {
+            type: 'Product',
             resolve: (_parent, _args, ctx) => {
-                return ctx.prisma.movie.findMany()
+                return ctx.prisma.product.findMany()
             }
         });
-        t.field('movie', {
-            type: 'Movie',
-            args: {
-                id: stringArg({ nullable: false })
-            },
-            resolve: (_parent, args, ctx) => {
-                return ctx.prisma.movie.findOne({
-                    where: { id: args.id }
-                })
+        t.list.field('categories', {
+            type: 'Category',
+            resolve: (_parent, _args, ctx) => {
+                return ctx.prisma.category.findMany()
             }
-        })
+        });
     }
 })

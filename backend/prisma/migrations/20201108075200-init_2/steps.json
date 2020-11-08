@@ -3,8 +3,8 @@
   "steps": [
     {
       "tag": "UpdateField",
-      "model": "Movie",
-      "field": "rating",
+      "model": "Product",
+      "field": "price",
       "type": "Int"
     }
   ]

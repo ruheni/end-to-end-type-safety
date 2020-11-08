@@ -2,21 +2,48 @@ import { intArg, mutationType, stringArg } from '@nexus/schema'
 
 export const Mutations = mutationType({
     definition(t) {
-        t.field('createMovie', {
-            type: 'Movie',
+        t.field('createProduct', {
+            type: 'Product',
             args: {
-                title: stringArg({ nullable: false }),
+                name: stringArg({ nullable: false }),
                 description: stringArg({ nullable: false }),
-                rating: intArg({ nullable: false }),
-                coverImage: stringArg({ nullable: false })
+                price: intArg({ nullable: false }),
+                sku: stringArg({ nullable: false })
             },
             resolve: (_parent, args, ctx) => {
-                return ctx.prisma.movie.create({
+                return ctx.prisma.product.create({
+                    data: args
+                })
+            }
+        });
+        t.field('createCategory', {
+            type: 'Category',
+            args: {
+                name: stringArg({ nullable: false })
+            },
+            resolve: (_parent, args, ctx) => {
+                return ctx.prisma.category.create({
+                    data: args
+                })
+            }
+        });
+        t.field('categorizeProduct', {
+            type: 'Product',
+            args: {
+                productId: stringArg({ nullable: false }),
+                categoryId: stringArg({ nullable: false })
+            },
+            resolve: (_parent, args, ctx) => {
+                return ctx.prisma.product.update({
+                    where: {
+                        id: args.productId
+                    },
                     data: {
-                        title: args.title,
-                        description: args.description,
-                        rating: args.rating,
-                        coverImage: args.coverImage
+                        categories: {
+                            connect: {
+                                id: args.categoryId
+                            }
+                        }
                     }
                 })
             }
